@@ -1,0 +1,221 @@
+body {
+    font-family: "Belanosima";
+    margin: 0;
+    padding: 0;
+}
+
+.cards {
+    display: flex;
+    flex-direction: row;
+    margin: 120px auto;
+    width: 80%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.cards .HR {
+    background-image: url('HR.png'); /* 替换为您自己的图像路径 */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.cards .Department {
+    background-image: url('Department.png'); /* 替换为您自己的图像路径 */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.cards .Management {
+    background-image: url('Management.png'); /* 替换为您自己的图像路径 */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.cards .card:hover {
+    transform: scale(1.05, 1.05);
+}
+  
+.cards:hover > .card:not(:hover) {
+    filter: blur(10px);
+    transform: scale(0.95, 0.95);
+}
+
+.cards .card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    height: 520px;
+    width: 450px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 400ms;
+    border: 1px solid #000;
+    margin-left: 30px;
+}
+
+.tail {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    background-color: #000;
+    height: 120px;
+    width: 100%;
+}
+
+.tail p {
+    text-align: center;
+    font-size: 18px;
+    color:#fff;
+}
+
+.clearData {
+    position: relative;
+    right: 0;
+    bottom: 0;
+    background-color: red;
+    height: 30px;
+    cursor: pointer;
+}
+
+/* body */
+
+.middle{
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.place-video{
+    height: 800px;
+    width: 100%;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-box{
+    height: 80%;
+    width: 720px;
+    cursor: pointer;
+}
+
+.right-intro{
+    width: 80%;
+    height: 480px;
+    padding: 50px;
+    margin-top: 60px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.left-intro{
+    width: 80%;
+    height: 480px;
+    padding: 50px;
+    margin-top: 60px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.intro-photo{
+    width: 55%;
+    height: 80%;
+    border: 2 solid ;
+    border-radius: 5%;
+    background-color: #000;
+}
+
+.intro-photo img{
+    width: 100%;
+    height: 100%;
+    border: 2px solid #000;
+}
+.intro-text{
+    width: 43%;
+    height: 100%;
+}
+
+.intro-text h1{
+    font-size: 60px;
+    text-align: center;
+}
+
+.intro-text em{
+    font-size: 40px;
+}
+
+.space{
+    width: 2%;
+}
+/* body */
+
+/* nav */
+.navbar {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 98%;
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 9%;
+    padding: 0.5% 1%;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+.nav-links li {
+    margin: 0 10px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-size: large;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #ff6600;
+}
+
+
+.logoleft{
+    width: 10%;
+    height: 100%;
+    border: 3px solid black;
+    cursor: pointer;
+}
+
+  /* logo */
+.logoleft img {
+    width: 100%; /* 設置圖片的寬度為100%，與父div等寬 */
+    height: 100%; /* 設置圖片的高度為100%，與父div等高 */
+    object-fit: cover; /* 使用object-fit以保持圖片的比例並填充整個div */
+}
+
+#intro {
+    scroll-margin-top: 80px; /* 調整滾動位置的偏移量 */
+}
+

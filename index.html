@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Revinio</title>
+    <link rel="icon" href="LOGO.png" type="image/x-icon">
+    <link href="index.css" rel="stylesheet">
+    <script src="index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Open+Sans&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logoleft">
+            <img src="./first/LOGO_ver1.0.png" class="logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#pro">Product</a></li>
+            <li><a href="#intro">Introduction</a></li>
+            <li><a href="#foot">About</a></li>
+        </ul>
+    </nav>
+    <!-- <div class="fixed-div">
+        <div class="logoleft">
+            <img src="./first/LOGO_ver1.0.png" class="logo">
+        </div>
+    </div> -->
+    <div class="cards">
+        <div class="card HR" onclick="divClick('first/HR_view.html')"></div>
+        <div class="card Department" onclick="divClick('second/department.html')"></div>
+        <div class="card Management" onclick="divClick('third/Final.html')"></div>
+    </div>
+    <div class="middle">
+        <div class="place-video" id="pro">
+            <div class="video-box">
+                <video width="100%" height="100%" controls poster="website_image/LOGO_ver5.png">
+                    <source src="website_video/Final Version.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+            </div>
+            <div>
+
+            </div>
+        </div>
+        <div class="right-intro" id="intro">
+            <div class="intro-photo">
+                <img src="website_image/reviewer1.png" alt="">
+            </div>
+            <div class="space"></div>
+            <div class="intro-text">
+                <h1>Efficiency</h1>
+                <em>
+                    "Visually compare and filter up to 500 resumes simultaneously based on user-set preferences."
+                </em>
+            </div>
+        </div>
+        <div class="left-intro">
+            <div class="intro-text">
+                <h1>Easier</h1>
+                <em>
+                    "Presented in a timeline format to provide users with a clearer view of the candidate's past experiences."
+                </em>
+            </div>
+            <div class="space"></div>
+            <div class="intro-photo">
+                <img src="website_image/reviewer2.png" alt="">
+            </div>
+        </div>
+        <div class="right-intro">
+            <div class="intro-photo">
+                <img src="website_image/reviewer3.png" alt="">
+            </div>
+            <div class="space"></div>
+            <div class="intro-text">
+                <h1>Emphasized</h1>
+                <em>
+                    "Highlighting the individual characteristics of candidates' resume data through visualization"
+                </em>
+            </div>
+        </div>
+    </div>
+    <div class="tail" id="foot">
+        <p>About Us:</p>
+        <p>We are students from a certain university. This is our project. Hope you will like it.</p>
+        <button class="clearData" onclick="ClearDataset()">Clear Dataset</button>
+    </div>
+</body>
+</html>
+
+<script>
+    function ClearDataset() {
+        fetch('clearDataset.php', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({}), // 发送一个空的JSON对象
+        })
+            .then(response => response.json())
+            .then(result => {
+            // 在这里处理后端返回的结果
+            console.log('result:', result);
+            })
+            .catch(error => {
+            // 处理错误
+            console.error('error:', error);
+            });
+    }
+</script>

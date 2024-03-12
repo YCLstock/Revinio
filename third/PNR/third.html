@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>forth distence</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v6.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="treemap.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .axis-label {
+            font-size: 14px;
+            fill: black;
+            /* 設置文字顏色為黑色 */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <div>{{ basic_information }}</div> -->
+
+        <!-- 放置照片區域 -->
+        <div class="section section-photo">
+            <div class="photo-list">
+                <div class="photo-item" v-for="photo in photos" :key="photo.id">
+                    <img class="photo-cv" :src="photo.url" :alt="photo.alt" style="width: 100%;"
+                        @click="changeInfo(photo.id)" />
+                </div>
+            </div>
+        </div>
+        <!-- 放置照片區域 -->
+        <!-- 評論區區域 -->
+        <div class="section section-comment">
+            <div class="containerforcomment">
+                <div class="row">
+                    <div class="col-md-8">
+                        <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
+                            src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
+                        <div class="media g-mb-30 media-comment">
+                            <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                                <div class="g-mb-15">
+                                    <h5 class="h5 g-color-gray-dark-v1 mb-0">John Doe[HR]</h5>
+                                    <span class="g-color-gray-dark-v4 g-font-size-12">5 days ago</span>
+                                </div>
+
+                                <p>Good for work.</p>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="media g-mb-30 media-comment">
+                            <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
+                                src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Image Description">
+                            <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                                <div class="g-mb-15">
+                                    <h5 class="h5 g-color-gray-dark-v1 mb-0">Jack Yoong [BOSS]</h5>
+                                    <span class="g-color-gray-dark-v4 g-font-size-12">5 days ago</span>
+                                </div>
+
+                                <p>Also good for work.</p>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
+                            src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
+                        <div class="media g-mb-30 media-comment">
+                            <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                                <div class="g-mb-15">
+                                    <h5 class="h5 g-color-gray-dark-v1 mb-0">John Doe[HR]</h5>
+                                    <span class="g-color-gray-dark-v4 g-font-size-12">5 days ago</span>
+                                </div>
+
+                                <p>Good for work.</p>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="media g-mb-30 media-comment">
+                            <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
+                                src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Image Description">
+                            <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                                <div class="g-mb-15">
+                                    <h5 class="h5 g-color-gray-dark-v1 mb-0">Jack Yoong [BOSS]</h5>
+                                    <span class="g-color-gray-dark-v4 g-font-size-12">5 days ago</span>
+                                </div>
+                                <p>Also good for work.</p>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 評論區區域 -->
+        <!-- 履歷區域 -->
+        <div class="section section-cv">
+            <div class="container">
+                <div class="details">
+                    <div class="left">
+                        <div class="photo-item-resume">
+                            <img class="photo-cv" :src="'../ai_picture/square/' + currentPhotoId + '.jpg'"
+                                style="width: 100%;" />
+                        </div>
+
+
+                        <div class="header" v-for="info in basic_information" :key="info.id">
+                            <div class="full-name">
+                                <span class="first-name" v-if="info.C_id === currentPhotoId">{{ info.C_name }}</span>
+                            </div>
+                            <div class="contact-info" v-if="info.C_id === currentPhotoId">
+                                <span class="email">Email: </span>
+                                <span class="email-val">{{ info.C_email }}</span>
+                                <span class="separator"></span>
+                                <span class="phone">Phone: </span>
+                                <span class="phone-val">{{ info.C_phone }}</span>
+                                <span class="phone">Address: </span>
+                                <span class="phone-val">{{ info.C_address }}</span>
+                            </div>
+                            <div class="about" v-if="info.C_id === currentPhotoId">
+                                <span class="position">Front-End Developer</span>
+                                <span class="desc">
+                                    I am a front-end developer with more than 3 years of experience writing HTML, CSS,
+                                    and
+                                    JS.
+                                    I'm motivated, result-focused and seeking a successful team-oriented company with
+                                    opportunity to grow.
+                                </span>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <div class="section__title">Skills</div>
+                            <hr>
+                            <div class="skills" v-for="item in skill">
+                                <div class="skills__item" v-if="item.C_id === currentPhotoId">
+                                    <div class="left">
+                                        <div class="name">{{ item.skill_name }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="section__list">
+                            <div class="section__list-item">
+                                <div class="section__title">Experience</div>
+                                <hr>
+                                <div class="section__list" v-for="item in work_experience">
+                                    <div class="section__list-item" v-if="item.C_id === currentPhotoId">
+                                        <div class="left">
+                                            <div class="name">{{ item.work_name }}</div>
+                                            <div class="addr">{{ item.work_position }}</div>
+                                            <div class="duration">{{ item.work_start_year }}/{{ item.work_start_month }}
+                                                - {{
+                                                item.work_end_year }}/{{ item.work_end_month }}</div>
+                                        </div>
+                                        <div class="right">
+                                            <div class="name">{{ item.work_type }}</div>
+                                            <div class="desc">{{ item.work_detail }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="section__list-item">
+                                <div class="section__title">Education</div>
+                                <hr>
+                                <div class="section__list" v-for="item in academic">
+                                    <div class="section__list-item" v-if="item.C_id === currentPhotoId">
+                                        <div class="left">
+                                            <div class="name">{{ item.school_name }}</div>
+                                            <div class="addr">{{ item.school_department }}</div>
+                                            <div class="duration">{{ item.school_start_year }}/{{
+                                                item.school_start_month }} - {{
+                                                item.school_end_year }}/{{ item.school_end_month }}</div>
+                                        </div>
+                                        <div class="right">
+                                            <div class="name">{{ item.school_degree }}</div>
+                                            <div class="desc">{{ item.GPA }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 履歷區域 -->
+        <!-- D3視覺化圖 -->
+        <div class="section section-1">
+            <div class="sub-section sub-section-1">
+                <!-- D3視覺化圖-1 -->
+                <div class="sub-section sub-section-1-1">
+                </div>
+                <!-- D3視覺化圖-1 -->
+
+                <!-- D3視覺化圖-2 -->
+                <div class="sub-section sub-section-1-2">
+                    EXPERIENCE
+                </div>
+                <!-- D3視覺化圖-2 -->
+            </div>
+            <!-- D3視覺化圖-3 -->
+            <div class="sub-section sub-section-3">
+                <div id="treemap"></div>
+            </div>
+            <!-- D3視覺化圖-3 -->\
+        </div>
+        <!-- D3視覺化圖 -->
+        <script>
+            const skillCounts = {}; // 用於統計每個技能的次數
+            const app = Vue.createApp({
+                data() {
+                    return {
+                        basic_information: [],
+                        academic: [],
+                        other_experience: [],
+                        work_experience: [],
+                        skill: [],
+                        relation_table_we_s: [],
+                        relation_table_oe_s: [],
+                        note_check: [],
+                        photos: [
+                            { id: '101', url: '../ai_picture/square/101.jpg', alt: 'Photo 101' },
+                            { id: '102', url: '../ai_picture/square/102.jpg', alt: 'Photo 102' },
+                            { id: '103', url: '../ai_picture/square/103.jpg', alt: 'Photo 103' },
+                            { id: '104', url: '../ai_picture/square/104.jpg', alt: 'Photo 104' },
+                            { id: '105', url: '../ai_picture/square/105.jpg', alt: 'Photo 105' },
+                            { id: '106', url: '../ai_picture/square/106.jpg', alt: 'Photo 106' },
+                            { id: '107', url: '../ai_picture/square/107.jpg', alt: 'Photo 107' },
+                            { id: '201', url: '../ai_picture/square/201.jpg', alt: 'Photo 201' },
+                            { id: '101', url: '../ai_picture/square/101.jpg', alt: 'Photo 101' },
+                            { id: '102', url: '../ai_picture/square/102.jpg', alt: 'Photo 102' },
+                            // 其他照片項目
+                        ],
+                        currentPhotoId: '101'
+                    };
+                },
+                mounted() {
+                    fetch('../api.php')
+                        .then(response => response.json())
+                        .then(data => {
+                            this.basic_information = data.basic_information;
+                            this.academic = data.academic;
+                            this.other_experience = data.other_experience;
+                            this.work_experience = data.work_experience;
+                            this.skill = data.skill;
+                            this.relation_table_we_s = data.relation_table_we_s;
+                            this.relation_table_oe_s = data.relation_table_oe_s;
+                            this.note_check = data.note_check;
+                            this.skill.forEach(item => {
+                                if (this.photos.some(photo => photo.id === item.C_id)) {
+                                    if (skillCounts[item.skill_name]) {
+                                        skillCounts[item.skill_name]++;
+                                    } else {
+                                        skillCounts[item.skill_name] = 1;
+                                    }
+                                }
+                            });
+                            console.log(skillCounts);
+                            console.log(this.data);
+                            const skillData = Object.entries(skillCounts).map(([name, count]) => ({ name, count }));
+                            drawTreemap(skillData, this.skill, this.currentPhotoId);
+                        })
+                        .catch(error => {
+                            console.error('Failed to fetch data:', error);
+                        });
+                },
+                methods: {
+                    changeInfo(photoId) {
+                        this.currentPhotoId = photoId;
+                        const skillData = Object.entries(skillCounts).map(([name, count]) => ({ name, count }));
+                        drawTreemap(skillData, this.skill, this.currentPhotoId);
+                    }
+                }
+            });
+            app.mount('#app');
+
+            const width = 500; // Treemap 的寬度
+            const height = 220; // Treemap 的高度
+            const svg = d3.select('#treemap')
+                .append('svg')
+                .attr('width', width)
+                .attr('height', height);
+        </script>
+    </div>
+</body>
+
+</html>

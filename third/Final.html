@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Open+Sans&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+<head>
+    <title>10 PEOPLE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v6.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="barchar.js"></script>
+    <script src="barchar2.js"></script>
+    <script src="treemap.js"></script>
+    <script src="confirm.js"></script>
+    <script src="JsforSubmit.js"></script>
+    <script src="howToRead.js"></script>
+    <script src="datapreprocess.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="Final.css">
+    <link rel="stylesheet" type="text/css" href="checkbox.css">
+
+    <style>
+        .tooltip {
+            position: absolute;
+            text-align: center;
+            padding: 6px;
+            font-size: 12px;
+            background: #fff;
+            border: 1px solid #ccc;
+            pointer-events: none;
+            opacity: 0;
+            /* 初始狀態為隱藏 */
+        }
+
+        .bar-group:hover .bar:not(:hover) {
+            opacity: 0.4;
+            /* 滑鼠懸停時的透明度設定 */
+        }
+
+        .legend {
+            font-size: 12px;
+            text-anchor: start;
+        }
+    </style>
+    <link rel="icon" href="../LOGO.png" type="image/x-icon">
+</head>
+
+
+
+
+<body>
+
+    <!-- 說明 -->
+    <!-- <div class="overlay" id="overlay">
+        <div class="instructions">
+            <p>點擊這裡進入網頁</p>
+        </div>
+    </div> -->
+
+    <div id="note_box" class="container_1">
+        <div class="flex-container-3">
+            <div class="nTopicr">
+                <button class="circle-buttonX" id="cbutton" onclick="noteBox()">X</button>
+                <h2>How To Read The Gragh</h2>
+                <img src="How To Read The Gragh.png" alt="Description of the image">
+            </div>
+        </div>
+    </div>
+
+    <div id="app">
+        <div class="all_area">
+            <div class="logo_area">
+                <div class="logo">
+                    <img src="LOGO_ver1.0.png" onclick="divClick('../index.html')" alt="logo">
+                </div>
+
+                <!-- <a href="http://localhost/project/Project/">
+                <button class="btn">Home</button>
+              </a> -->
+                <button class="btn" onclick="FunctionForSubmit()">Send Invitation</button>
+                <button class="btn_q" id="howToRead" onclick="noteBox()">?</button>
+            </div>
+            <div class="people_area">
+                <!-- 放置照片區域 -->
+
+                <div class="section section-photo">
+                    <div class="photo-item" v-for="photo in photos" :key="photo.id">
+                        <input type="checkbox" class="ui-checkbox" @click="saveIDs(photo.id)">
+                        <img class="photo-cv" :src="photo.url" :alt="photo.alt" style="height: 100%;" :id="photo.id"
+                            :class="{ 'selected': currentPhotoId === photo.id }" @click="changeInfo(photo.id)" />
+                    </div>
+
+                </div>
+                <!-- 放置照片區域結束 -->
+
+                <!-- 評論區區域 -->
+                <div class="section section-comment">
+                    <div class="containerforcomment">
+                        <div class="text-item" v-for="photo in photos" :key="photo.id">
+                            <div class="textarea" :class="{ 'selected': currentPhotoId === photo.id }">
+                                <!--分割用-->
+                                <div class="wrap" @click="changeInfo(photo.id)">
+                                    <!--放圖片-->
+                                    <div class="boxleft">
+                                        <div :id="'star' + photo.id" class="rating">
+                                            <div v-for="item in note_check">
+                                                <div :id="photo.id" class="text" v-if="item.C_id === photo.id">
+                                                    <div v-for="info in basic_information" :key="info.id">
+                                                        <div class="starname"
+                                                            v-if="info.C_id === photo.id && item.Note_View == 2">
+                                                            <p>{{info.C_name}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="starphoto" v-if="item.Note_View == 2">
+                                                        <div v-if="item.N_star == 5">
+                                                            <img src="../icon/5.jpg" width="100">
+                                                        </div>
+                                                        <div v-else-if="item.N_star == 4">
+                                                            <img src="../icon/4.jpg" width="100">
+                                                        </div>
+                                                        <div v-else-if="item.N_star == 3">
+                                                            <img src="../icon/3.jpg" width="100">
+                                                        </div>
+                                                        <div v-else-if="item.N_star == 2">
+                                                            <img src="../icon/2.jpg" width="100">
+                                                        </div>
+                                                        <div v-else-if="item.N_star == 1">
+                                                            <img src="../icon/1.jpg" width="100">
+                                                        </div>
+                                                        <div v-else-if="item.N_star == 0">
+                                                            <img src="../icon/0.jpg" width="100">
+                                                        </div>
+                                                        <div v-else-if="item.N_star == NULL">
+                                                            <img src="../icon/0.jpg" width="100">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--放評語-->
+                                    <div class="boxright">
+
+                                        <!--第一層評語-->
+                                        <div v-for="item in note_check">
+                                            <div :id="photo.id" class="text" v-if="item.C_id === photo.id">
+                                                <div v-if="item.Note_View == 1">
+                                                    <!-- <p>HR:</p> -->
+                                                    <p id="textforcomment" >1st reviewer's:
+                                                        <br><span v-html="item.Note"></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--第一層評語-->
+                                        <hr>
+                                        <!--第二層評語-->
+                                        <div v-for="item in note_check">
+                                            <div :id="photo.id" class="text" v-if="item.C_id === photo.id">
+                                                <div v-if="item.Note_View == 2">
+                                                    <!-- <p>Department:</p> -->
+                                                    <p id="textforcomment">2nd reviewer's:
+                                                        <br>
+                                                        <span v-html="item.Note"></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--第二層評語-->
+
+                                    </div>
+                                    <!--放圖片-->
+                                </div>
+                                <!--分割用-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- 評論區區域 -->
+
+
+
+
+        <!-- 履歷區域 -->
+        <div class="section_section-cv">
+            <div class="container">
+                <div class="details">
+
+                    <div id="left">
+
+                        <div class="photo-item-resume">
+                            <div v-for="info in basic_information" :key="info.id">
+                                <div v-if="info.C_id === currentPhotoId">
+                                    <img class="photo-cv" :src="'../ai_picture/square/'+info.C_photo"
+                                        style="width: 90%;display:block; margin:auto;margin-top: 10px;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="contact">
+                            <span id="contact">MY CONTACT</span>
+                        </div>
+
+
+                        <div class="header" v-for="info in basic_information" :key="info.id">
+
+                            <div id="header-info">
+                                <div class="contact-info" v-if="info.C_id === currentPhotoId">
+                                    <div class="info-tittle">
+                                        <span class="icon"><i class="fa fa-phone"></i></span> Phone
+                                        <br>
+                                    </div>
+                                    <div class="info">
+                                        <span class="phone-val">{{ info.C_phone }}</span>
+                                        <br>
+                                    </div>
+
+                                    <div class="info-tittle">
+                                        <span class="icon"><i class="fa fa-envelope"></i> </span> Email
+                                        <br>
+                                    </div>
+                                    <div class="info">
+                                        <span class="email-val">{{ info.C_email }}</span>
+                                        <br>
+                                    </div>
+
+                                    <div class="info-tittle">
+                                        <span class="icon"><i class="fa fa-home"></i> </span> Address
+                                        <br>
+                                    </div>
+                                    <div class="info">
+                                        <span class="phone-val">{{ info.C_address }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="section">
+                            <div class="section__titleLeft">EXPERTISE</div>
+                            <div v-for="item in skill">
+                                <div class="skills__item" v-if="item.C_id === currentPhotoId">
+                                    <div class="info"> • {{ item.skill_name }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div id ="right">
+                        <div id="allRight" class="section__list">
+
+                            <div class="section__list-item">
+                                <div class="header" v-for="info in basic_information" :key="info.id">
+                                    <div class="full-name">
+                                        <span class="first-name" v-if="info.C_id === currentPhotoId">{{ info.C_name
+                                            }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="section__titleRight">
+                                    <span class="position">About Myself</span>
+                                    <div class="informationforself" v-for="item in basic_information">
+
+                                        <div class="textforcomment" id="C_intro" v-if="item.C_id === currentPhotoId">{{ item.C_introduce }} </div>
+                                        <!-- I am a front-end developer with more than 3 years of experience writing HTML, -->
+                                    </div>
+                                </div>
+
+                                <div class="section__titleRight">Experience</div>
+                                <hr>
+                                <div class="section__list" v-for="item in work_experience">
+                                    <div class="section__list-item" v-if="item.C_id === currentPhotoId">
+                                        <div id="tittle">
+                                            <div class="name"> |
+                                                {{ item.work_start_year }}/{{item.work_start_month }} - {{
+                                                item.work_end_year }}/{{ item.work_end_month }}</div>
+                                            <div class="name">{{ item.work_name }} {{ item.work_position }}</div>
+                                        </div>
+                                        <div class="context">
+                                            <div class="name">{{ item.work_type }}</div>
+                                            <div class="information">{{ item.work_detail }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="section__list-item">
+                                <div class="section__titleRight">Education</div>
+                                <hr>
+                                <div class="section__list" v-for="item in academic">
+                                    <div class="section__list-item" v-if="item.C_id === currentPhotoId">
+                                        <div>
+                                            <div class="name">{{item.school_end_year }}/{{ item.school_end_month }} | {{
+                                                item.school_name }} | GPA：{{ item.GPA }}</div>
+                                        </div>
+                                        <div class="information">{{ item.school_degree }} of {{ item.school_department
+                                            }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+        <!-- 履歷區域 -->
+
+
+
+
+        <!-- D3視覺化圖 -->
+        <div class="section-1">
+
+                <!-- D3視覺化圖-1 -->
+                <div class="sub-section-1-1">
+
+                </div>
+                <!-- D3視覺化圖-1 -->
+
+                <!-- D3視覺化圖-2 -->
+                <div id="sub-section-1-2">
+                    <!-- <div id="barchar2"></div> -->
+                </div>
+                <!-- D3視覺化圖-2 -->
+
+                <!-- D3視覺化圖-3 -->
+                <div class="sub-section-1-3"></div>
+                <!-- D3視覺化圖-3 -->
+
+        </div>
+        <!-- D3視覺化圖 -->
+    </div>
+
+</body>
+
+
+
+
+<script src="star.js"></script>
+
+<!-- <script src="count_star.js"></script> -->
+<!-- VUE -->
+<script>
+    const uniqueSchools = new Set();
+    const uniqueDepartments = new Set();
+    const uniqueDegree = new Set();
+    const studentCount = {}; // 用於統計每個學校與科系有的學生數量
+    const skillCounts = {}; // 用於統計每個技能的次數
+    const uniqueCIds = {};
+    // simple graph use
+    var ppl_id = {}
+    var simple_data = {}; //store data
+    const app = Vue.createApp({
+        data() {
+            return {
+                basic_information: [],
+                academic: [],
+                other_experience: [],
+                work_experience: [],
+                skill: [],
+                relation_table_we_s: [],
+                relation_table_oe_s: [],
+                note_check: [],
+                photos: [],
+                currentPhotoId: '',
+                peopleWithSkillIds: [] // 有技能的
+            };
+        },
+        mounted() {
+            fetch('../api.php')
+                .then(response => response.json())
+                .then(data => {
+                    this.basic_information = data.basic_information;
+/*
+                    this.academic = data.academic.map(item => {
+                        // 處理部門名稱
+                        const processedDepartment = item.school_department.replace(/department of/gi, "").trim();
+
+                        return {
+                            ...item,
+                            school_department: processedDepartment
+                        };
+                    });
+*/
+                    this.academic = preprocess(data.academic);
+                    this.other_experience = data.other_experience;
+                    this.work_experience = data.work_experience;
+                    this.skill = data.skill;
+                    this.relation_table_we_s = data.relation_table_we_s;
+                    this.relation_table_oe_s = data.relation_table_oe_s;
+                    this.note_check = data.note_check;
+
+                    const uniqueCId = [];
+                    this.note_check.forEach(item => {
+                        if (item.Note_View === '2' && item.N_check === '1') {
+                            uniqueCId.push(item.C_id);
+                        }
+                    });
+                    const uniqueCIds = Array.from(new Set(uniqueCId));
+                    /*
+                    if (this.note_check.length > 0) {
+                        this.currentPhotoId = this.note_check[0].C_id;
+                    }*/
+                    this.photos = uniqueCIds.map(C_id => {
+                        const noteCheckItem = this.note_check.find(item => item.C_id === C_id &&item.Note_View === '2');
+                        console.log(noteCheckItem)
+                        const matchingBasicInfo = this.basic_information.find(info => info.C_id === C_id);
+
+                        if (matchingBasicInfo) {
+                            const C_photo = matchingBasicInfo.C_photo;
+                            console.log(noteCheckItem)
+                            return {
+                                id: C_id,
+                                url: `../ai_picture/square/${C_photo}`,
+                                alt: `Photo ${C_id}`,
+                                note: noteCheckItem.note,
+                                view: noteCheckItem.view,
+                                notecheck: noteCheckItem.notecheck,
+                                N_star: noteCheckItem.N_star // 添加N_star属性
+                            };
+                        } else {
+                            return null; // 如果找不到匹配的 basic_information，则返回 null 或者做相应的处理
+                        }
+                    });
+                    // console.log("我要看內容",this.photos)
+                    // console.log("不知道是哪個",photo)
+
+                    this.academic.forEach(item => {
+                        if (this.photos.some(photo => photo.id === item.C_id)) {
+
+                            uniqueSchools.add(item.school_name);
+                            uniqueDepartments.add(item.school_department);
+                            uniqueDegree.add(item.school_degree);
+
+                            //const key = `${item.school_name} - ${item.school_department}`;
+                            const key = `${item.school_name} - ${item.school_department} - ${item.school_degree}`;
+
+                            if (studentCount[key]) {
+                                studentCount[key]++;
+                            } else {
+                                studentCount[key] = 1;
+                            }
+                        }
+                    });
+                    this.schoolData = Array.from(uniqueSchools);
+                    this.departmentsData = Array.from(uniqueDepartments);
+                    this.skill.forEach(item => {
+                        if (this.photos.some(photo => photo.id === item.C_id)) {
+                            if (skillCounts[item.skill_name]) {
+                                skillCounts[item.skill_name]++;
+                            } else {
+                                skillCounts[item.skill_name] = 1;
+                            }
+                        }
+                    });
+                    console.log("all", data);
+                    saveBasic(data);
+
+                    
+
+
+                    // star(window.star_id);
+                    simple_data = data;
+                    
+                    this.photos.sort((a, b) => b.N_star - a.N_star);
+                    console.log(this.photos)
+                    if (this.photos.length > 0) {
+                        console.log(this.photos[0].id)
+                        this.currentPhotoId = this.photos[0].id};
+                    
+                        // 声明一个空数组来存储所有的 id
+                    const idsArray = [];
+
+                    // 使用 map 方法遍历 this.photos
+                    this.photos.map(photo => {
+                        // 检查 photo 是否为 null
+                        if (photo !== null) {
+                            // 将每个对象的 id 添加到 idsArray 中
+                            idsArray.push(photo.id);
+                        }
+                    });
+
+                    // 现在 idsArray 将包含所有非 null 的 id
+                    console.log(idsArray);
+                    ppl_id = idsArray;
+                    const studenData = Object.entries(studentCount).map(([name, count]) => ({ name, count }));
+                    drawBarChart(studenData, this.academic, this.currentPhotoId, uniqueCIds);
+                    simple_graph(data, 0, idsArray, this.currentPhotoId);
+                    const skillData = Object.entries(skillCounts).map(([name, count]) => ({ name, count }));
+                    drawTreemap(skillData, this.skill, this.currentPhotoId, uniqueCIds);
+
+                    // console.log(studentCount);
+                    // console.log(skillCounts);
+
+                    // 在 Vue 實例渲染完畢後執行
+
+                    // Vue 渲染完畢，觸發自定義事件
+                    const event = new Event('vueRendered');
+                    document.dispatchEvent(event);
+
+
+                })
+                .catch(error => {
+                    console.error('Failed to fetch data:', error);
+                });
+
+
+
+        },                  //mount結尾
+        methods: {
+            changeInfo(photoId) {
+                //當前照片
+                this.currentPhotoId = photoId;
+                const uniqueCId = [];
+                this.note_check.forEach(item => {
+                    if (item.Note_View === '2' && item.N_check === '1') {
+                        uniqueCId.push(item.C_id);
+                    }
+                });
+                const uniqueCIds = Array.from(new Set(uniqueCId));
+                //第一張d3
+                const studenData = Object.entries(studentCount).map(([name, count]) => ({ name, count }));
+                drawBarChart(studenData, this.academic, this.currentPhotoId, uniqueCIds);
+                //第二張d3
+                simple_graph(simple_data, 0, ppl_id, this.currentPhotoId);
+                //第三張d3
+                const skillData = Object.entries(skillCounts).map(([name, count]) => ({ name, count }));
+                drawTreemap(skillData, this.skill, this.currentPhotoId, uniqueCIds);
+            },
+            saveIDs(photoId) {
+                saveIDs(photoId);
+            }
+        }
+    });
+    app.mount('#app');
+    function divClick(destination) {
+        window.location.href = destination;
+    }
+    // document.getElementById('overlay').addEventListener('click', function() {
+    // this.style.display = 'none';
+    // });
+</script>
+
+</html>

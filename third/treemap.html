@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>forth distence</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v6.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="treemap.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .axis-label {
+            font-size: 14px bold;
+            fill: black;
+            /* 設置文字顏色為黑色 */
+        }
+
+        .treemap {
+            width: 560px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="treemap"></div>
+    </div>
+</body>
+<script>
+    const skillCounts = {}; // 用於統計每個技能的次數
+    const app = Vue.createApp({
+        data() {
+            return {
+                basic_information: [],
+                academic: [],
+                other_experience: [],
+                work_experience: [],
+                skill: [],
+                relation_table_we_s: [],
+                relation_table_oe_s: [],
+                note_check: [],
+                photos: [
+                    { id: '101', url: '../ai_picture/square/101.jpg', alt: 'Photo 101' },
+                    { id: '102', url: '../ai_picture/square/102.jpg', alt: 'Photo 102' },
+                    { id: '103', url: '../ai_picture/square/103.jpg', alt: 'Photo 103' },
+                    { id: '104', url: '../ai_picture/square/104.jpg', alt: 'Photo 104' },
+                    { id: '105', url: '../ai_picture/square/105.jpg', alt: 'Photo 105' },
+                    { id: '106', url: '../ai_picture/square/106.jpg', alt: 'Photo 106' },
+                    { id: '107', url: '../ai_picture/square/107.jpg', alt: 'Photo 107' },
+                    { id: '201', url: '../ai_picture/square/201.jpg', alt: 'Photo 201' },
+                    { id: '101', url: '../ai_picture/square/101.jpg', alt: 'Photo 101' },
+                    { id: '102', url: '../ai_picture/square/102.jpg', alt: 'Photo 102' },
+                    // 其他照片項目
+                ],
+                currentPhotoId: '101'
+            };
+        },
+        mounted() {
+            fetch('../api.php')
+                .then(response => response.json())
+                .then(data => {
+                    this.basic_information = data.basic_information;
+                    this.academic = data.academic;
+                    this.other_experience = data.other_experience;
+                    this.work_experience = data.work_experience;
+                    this.skill = data.skill;
+                    this.relation_table_we_s = data.relation_table_we_s;
+                    this.relation_table_oe_s = data.relation_table_oe_s;
+                    this.note_check = data.note_check;
+                    this.skill.forEach(item => {
+                        if (this.photos.some(photo => photo.id === item.C_id)) {
+                            if (skillCounts[item.skill_name]) {
+                                skillCounts[item.skill_name]++;
+                            } else {
+                                skillCounts[item.skill_name] = 1;
+                            }
+                        }
+                    });
+                    console.log(skillCounts);
+                    console.log(this.data);
+                    const skillData = Object.entries(skillCounts).map(([name, count]) => ({ name, count }));
+                    drawTreemap(skillData);
+                })
+                .catch(error => {
+                    console.error('Failed to fetch data:', error);
+                });
+        },
+    });
+    app.mount('#app');
+    
+    const width = 560; // Treemap 的寬度
+    const height = 500; // Treemap 的高度
+    const svg = d3.select('#treemap')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height);
+
+</script>

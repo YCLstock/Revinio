@@ -1,0 +1,367 @@
+  /* ---------------------- Main Page---------------------- */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  #app {
+    height: 100vh;
+    display: flex;
+  }
+  
+  .section {
+    display: block;
+    color: white;
+    font-size: 24px;
+  }
+
+    /* 放置照片區域 */
+
+    .photo-item-resume{
+      max-width: 100px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;  
+      border:2px black solid;
+    }
+  .section-photo {
+    margin: 2px;
+    width: 5%;
+    background-color: #FDFFCC;
+  }
+
+      .photo-list{
+        max-width: 100px;
+        margin: 0 auto;
+      }
+      .photo-item{
+        max-width: 100px;
+        width: 100%;
+        height: 64px;
+        border:2px black solid;
+        margin: 0 0 0px;
+        padding: 0 0 0px;
+      }
+
+      .photo-cv{
+        width: 100%;
+        height: 100%;
+        margin: 0 0 0px;
+        padding: 0 0 0px;
+      }
+    /* 放置照片區域 */
+
+
+    /* 評論區區域 */
+  .section-comment {
+    width: 20%;
+    background-color: #FDFFCC;
+    margin: 1px;
+    border: 2px black solid;
+  }
+  /* 評論區區域 */
+
+
+  /* 履歷區域 */
+  .section-cv {
+    margin: 1px;
+    width: 45%;
+  }
+  /* 履歷區域 */
+  
+  /* D3視覺化圖 */
+  .section-1 {
+    width: 35%;
+    background-color: #f44336;
+  }
+  
+  .sub-section {
+    height: 70%;
+  }
+  
+  .sub-section-1 {
+    background-color: #FDFFCC;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sub-section-1-1 {
+    background-color: #FDFFCC;
+    color: #000;
+    margin: 1px;
+  }
+  
+  .sub-section-1-2 {
+    background-color: #e91e63;
+    margin: 1px;
+  }
+  
+  .sub-section-3 {
+    background-color: #ffc107;
+    margin: 1px;
+  }
+  /* D3視覺化圖 */
+
+  
+  html, body {
+    overflow: hidden;
+  }
+  
+  body > .section {
+    height: 100vh;
+  }
+  /* ---------------------- Main Page---------------------- */
+
+
+
+
+
+
+  /* ---------------------- COMMENT---------------------- */
+
+  .containerforcomment{
+    background: #eee;
+    font-family: "Lato", sans-serif;
+    color: #222;
+    font-size: 8px;
+    line-height: 25px;
+    padding-bottom: 10px;
+    max-width: 100%;
+    max-height: auto;
+    background: #fff;
+    margin: 0px auto 0px;
+    box-shadow: 1px 1px 2px #DAD7D7;
+    border-radius: 3px;
+    padding: 8px;
+    overflow: auto;  /* 添加滑動效果 */
+    height: 50%;  /* 設置div的高度 */
+  }
+
+.g-height-50 {
+  height: 3%;
+}
+
+.g-width-50 {
+  width: 30% !important;
+}
+
+
+.g-bg-secondary {
+  background-color: #fafafa !important;
+}
+
+.u-shadow-v18 {
+  box-shadow: 0 5px 10px -6px rgba(0, 0, 0, 0.15);
+}
+
+.g-color-gray-dark-v4 {
+  color: #777 !important;
+}
+
+.col-md-8{
+  padding: 1%;  
+  border: 10%;
+}
+
+.g-font-size-12 {
+  font-size: 0.85714rem !important;
+}
+
+.media-comment {
+  margin-top:20px
+}
+
+/* ---------------------- COMMENT---------------------- */
+
+
+
+
+
+
+
+/* ---------------------- RESUME ---------------------- */
+.resume {
+  color: black;
+}
+
+.container {
+  background: white;
+  font-family: "Lato", sans-serif;
+  color: #222;
+  font-size: 8px;
+  line-height: 25px;
+  padding-bottom: 10px;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0px auto 0px;
+  box-shadow: 1px 1px 2px #DAD7D7;
+  border-radius: 3px;
+  padding: 5px;
+  overflow: auto;  /* 添加滑動效果 */
+  height: 700px;  /* 設置div的高度 */
+}
+
+.header {
+  margin-bottom: 20px;
+  box-shadow: 1px 1px 2px #DAD7D7;
+}
+
+.header .full-name {
+  font-size: 20px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+.header .first-name {
+  font-weight: 700;
+}
+.header .last-name {
+  font-weight: 300;
+}
+.header .contact-info {
+  margin-bottom: 20px;
+}
+.header .email,
+.header .phone {
+  color: #999;
+  font-weight: 300;
+}
+.header .separator {
+  height: 10px;
+  display: inline-block;
+  border-left: 2px solid #999;
+  margin: 0px 10px;
+}
+.header .position {
+  font-weight: bold;
+  display: inline-block;
+  margin-right: 10px;
+  text-decoration: underline;
+}
+
+.about{
+  margin: 1%;
+  margin-top: 10%;
+}
+
+
+.details {
+  line-height: 20px;
+  background: #fff;
+  box-shadow: 5px 5px 5px #DAD7D7;
+}
+.details .section {
+  margin-bottom: 40px;
+  box-shadow: 1px 1px 2px #DAD7D7;
+}
+.details .section:last-of-type {
+  margin-bottom: 0px;
+}
+
+.details .section__title {
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: #75797b;
+  font-weight: bold;
+  margin-bottom: 0.5%;
+  text-transform: uppercase;
+}
+.details .section__list-item {
+  margin: 15px;
+  box-shadow: 1px 1px 2px #d9dad7;
+}
+.details .section__list-item:last-of-type {
+  margin-bottom: 0;
+}
+.details .left{
+  background-color: whitesmoke ;
+  padding: 1%;
+  box-shadow: 5px 5px 5px #DAD7D7;
+}
+.details .left,
+.details .right {
+  vertical-align: top;
+  display: inline-block;
+}
+.details .left {
+  max-width: 100%;
+  width: 40%;
+}
+.details .right {
+  max-width: 100%;
+  width: 60%;
+}
+.details .name {
+  font-size: 8px;
+  color: #000;
+}
+
+.details a {
+  text-decoration: none;
+  color: #000;
+  font-style: italic;
+}
+
+.details .addr {
+  font-size: 8px;
+  color: #000;
+}
+.details .duration {
+  font-size: 8px;
+  color: #000;
+}
+.details .desc{
+  font-size: 8px;
+  color: #000;
+}
+.details a {
+  text-decoration: none;
+  color: #000;
+  font-style: italic;
+}
+.details a:hover {
+  text-decoration: underline;
+  color: #000;
+}
+
+.section__list-item {
+  font-size: 12px;
+  font-weight: bold;
+  color: #000;
+}
+
+.details .skills__item {
+  margin-bottom: 10px;
+}
+.details .skills__item .right input {
+  display: none;
+}
+.details .skills__item .right label {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: #C3DEF3;
+  border-radius: 20px;
+  margin-right: 3px;
+}
+.details .skills__item .right input:checked + label {
+  background: #79A9CE;
+}
+/* ---------------------- RESUME ---------------------- */
+
+/* Define CSS styles here */
+.circle {
+    cursor: pointer;
+}
+
+.circle:hover {
+    stroke-width: 5px;
+    stroke: #9EA4FF;
+}
+
+.circle.active {
+    stroke-width: 5px;
+    stroke: #6D6CFF;
+}

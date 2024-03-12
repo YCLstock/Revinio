@@ -1,0 +1,292 @@
+<!-- 2023/08/08 保險push -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HR view</title>
+    <link rel="icon" href="../LOGO.png" type="image/x-icon">
+    <script src="noUiSlider-15.7.1/dist/nouislider.min.js"></script>
+    <link rel="stylesheet" href="noUiSlider-15.7.1/dist/nouislider.min.css">
+    <link href="HR_view.css" rel="stylesheet">
+    <script src="HR_view.js"></script>
+    <script src="datapreprocess.js"></script>
+    <script src="https://d3js.org/d3.v6.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Belanosima&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Open+Sans&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <div class="fixed-div">
+        <div class="logoleft">
+            <img src="LOGO_ver1.0.png" class="logo" onclick="divClick('../index.html')">
+        </div>
+    </div>
+
+    <!-- 遮罩層 -->
+    <div id="mask"></div>
+    <div id="back">
+        <div id="big_box" class="container">
+            <div class="school_background">
+                <div class="school_string">
+                    <div class="inside_school_string">
+                        <h2>School</h2>
+                    </div>
+                    <div >
+                        <button class="btn_2" id="cbutton" onclick="noteBox2()">?</button>
+                    </div>
+                    <div id="note_box_2" class="container_2">
+                        <div class="flex-container-3">
+                            <div class="nTopic">
+                                <h2>How To Use the Setting</h2>
+                            </div>
+                            <div class="nTopicr">
+                                <button class="circle-buttonX" id="cbutton" onclick="noteBox2()">X</button>
+                            </div>
+                            <div class="leftfil">
+                                <h3>You can customize your preference by dragging the school to one of the three classification.
+                                    Put your most desired options on the right.
+                                </h3>
+                            </div>
+                            <div class="rightfil">
+                                <h3>Then you can set the GPA range by using the bar at the bottom. You will finally cut it 
+                                    into 4 intervals.
+                                </h3>
+                            </div>
+                            <div class="leftpic">
+                                <img src="ex5.png">
+                            </div>
+                            <div class="rightpic">
+                                <img src="ex6.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter_comfirm" onclick="closeToggleBigBox()">
+                    <p>&check;</p>
+                </div>
+                <div class="horizontal_big_text_box">
+                    <div id="else_a_text" class="horizontal_text_box">
+                        <p>Not Prefer</p>
+                    </div>
+                    <div id="prefer_a_text" class="horizontal_text_box">
+                        <p>Prefer</p>
+                    </div>
+                    <div id="priority_a_text" class="horizontal_text_box">
+                        <p>Most Prefer</p>
+                    </div>
+                </div>
+                <div class="school_horizontal_big_box">
+                    <div class="school_horizontal_small_box" id="else_a">
+                    </div>
+                    <div class="school_horizontal_small_box" id="prefer_a">
+                    </div>
+                    <div class="school_horizontal_small_box" id="priority_a">
+                    </div>
+                </div>
+                <div class="school_vertical_big_box">
+                    <div class="vertical_text"><p>GPA</p></div>
+                    <div id="school_vertical_small_box" class="school_vertical_small_box">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="big_box1" class="container">
+                <div class="work_background">
+                    <div class="work_string">
+                        <div class="inside_work_string">
+                            <h2>Work</h2>
+                        </div>
+                        <div >
+                            <button class="btn_2" id="cbutton" onclick="noteBox3()">?</button>
+                        </div>
+                        <div id="note_box_3" class="container_2">
+                            <div class="flex-container-3">
+                                <div class="nTopic">
+                                    <h2>How To Use the Setting</h2>
+                                </div>
+                                <div class="nTopicr">
+                                    <button class="circle-buttonX" id="cbutton" onclick="noteBox3()">X</button>
+                                </div>
+                                <div class="leftfil">
+                                    <h3>You can customize your preference by dragging the company to one of the three classification.
+                                        Put your most desired options on the right.
+                                    </h3>
+                                </div>
+                                <div class="rightfil">
+                                    <h3>Then you can set the Seniority range by using the bar at the bottom. You will finally cut it 
+                                        into 4 intervals.
+                                    </h3>
+                                </div>
+                                <div class="leftpic">
+                                    <img src="ex8.png">
+                                </div>
+                                <div class="rightpic">
+                                    <img src="ex9.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter_comfirm" onclick="closeToggleBigBox1()" >
+                        <p>&check;</p>
+                    </div>
+                    <div class="horizontal_big_text_box">
+                        <div id="else_w_text" class="horizontal_text_box">
+                            <p>Not Prefer</p>
+                        </div>
+                        <div id="prefer_w_text" class="horizontal_text_box" id="prefer_text_w">
+                            <p>Prefer</p>
+                        </div>
+                        <div id="priority_w_text" class="horizontal_text_box">
+                            <p>Most Prefer</p>
+                        </div>
+                    </div>
+                    <div class="work_horizontal_big_box">
+                        <div class="work_horizontal_small_box" id="else_w">
+                        </div>
+                        <div class="work_horizontal_small_box" id="prefer_w">
+                        </div>
+                        <div class="work_horizontal_small_box" id="priority_w">
+                        </div>
+                    </div>
+                    <div class="work_vertical_big_box">
+                        <div class="vertical_text"><p>Seniority</p></div>
+                        <div id="work_vertical_small_box" class="work_vertical_small_box">
+                        </div>
+                    </div>          
+            </div>
+        </div>
+        <div class="graph">
+            <div class="graph_left">
+                <div class="flex_container">
+                    <div class="graph_left_top_left">
+                        <div class="flex-container-1">
+                            <div class="topl">
+                                <h4>HR view</h4>
+                            </div>
+                            <div class="top">
+                                <div class="container2">
+                                    <div class="CatTit">
+                                       <h1>Academic</h1> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="topr">
+                                <button class="btn" onclick="toggleBigBox()">Setting</button> 
+                                <button id="dataSet" class="btn" onclick="changeDataSet()">
+                                    Only show<br>highest degree
+                                    <div id="checkDataSet">&check;</div>
+                                </button> 
+                                <button class="btn_1" id="cbutton" onclick="noteBox()">?</button>
+                            </div>
+                            <div id="note_box" class="container_1">
+                                <div class="flex-container-3">
+                                    <div class="nTopic">
+                                        <h2>How To Read The Gragh</h2>
+                                    </div>
+                                    <div class="nTopicr">
+                                        <button class="circle-buttonX" id="cbutton" onclick="noteBox()">X</button>
+                                    </div>
+                                    <div class="leftexpl">
+                                        <h3>The left part shows the departments that every applicant was in. Hovering over it will display the full name of the department.
+                                            Colors represent the choices you made in the filter, and the areas of the color also indicate the percentage of your decision.
+                                            Choose your preference by clicking on the bar.
+                                        </h3>
+                                    </div>
+                                    <div class="rightexpl">
+                                        <h3>The chosen departments will appear on the right.
+                                            The dots represent the degree of the candidates. By clicking on a dot or selecting the dots, you will be allowed to leave a comment and select or remove. 
+                                            The dots that were selected will be red, and the dots being selected will be pink and appear solid.
+                                            (You can use the button to only show their highest education)
+                                        </h3>
+                                    </div>
+                                    <div class="exgraph">
+                                        <img src="ex1.png">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> 
+                    </div>
+                    <div class="graph_left_top_right">
+                        <div class="flex-container-1">
+                            <div class="topl">
+                                
+                            </div>
+                            <div class="top">
+                                <div class="container2">
+                                    <div class="CatTit">
+                                        <h1>Job Position</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="topr">
+                                <button class="btn" onclick="toggleBigBox1()">Setting</button> 
+                                <button id="dataSet_w" class="btn" onclick="changeDataSet_w()" >
+                                    Only show<br>latest only
+                                    <div id="checkDataSet_w">&check;</div>
+                                </button> 
+                                <button class="btn_1" id="cbutton" onclick="noteBox1()">?</button>
+                            </div>
+                            <div id="note_box_1" class="container_1">
+                                <div class="flex-container-3">
+                                    <div class="nTopic">
+                                        <h2>How To Read The Gragh</h2>
+                                    </div>
+                                    <div class="nTopicr">
+                                        <button class="circle-buttonX" id="cbutton" onclick="noteBox1()">X</button>
+                                    </div>
+                                    <div class="leftexplj">
+                                        <h3>The left part displays every applicant's work position. Hovering over it will show the full name of the position.
+                                            Colors represent the choices you made in the filter, and the areas of the color also indicate the percentage of your decision.
+                                        </h3>
+                                    </div>
+                                    <div class="rightexplj">
+                                        <h3>Choose your preference by clicking on the bar.
+                                            The chosen positions will appear on the right.
+                                            The dots represent the job changing frequency of the candidates. By clicking on a dot or selecting the dots, you will be able to comment and select or remove.
+                                            The dots that were selected will be red, and the dots being selected will be pink and appear solid.
+                                            (You can use the button to only show their latest job position)
+                                        </h3>
+                                    </div>
+                                    <div class="exgraphw">
+                                        <img src="ex3.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                <div class="graph_left_bot">
+                    <div class="container3">
+                        <div id="school_bar" class="filter_graph">
+
+                        </div>
+                        <div id="school_dot" class="main_graph">
+                            <h1 id="main_graph_school_hint"><span >&larr;</span>Click here to show graph</h1>
+                        </div>
+                    </div>
+                    <div class="container4">
+                        <div id="work_bar"class="filter_graph">
+
+                        </div>
+                        <div id="work_dot" class="main_graph">
+                            <h1 id="main_graph_work_hint"><span >&larr;</span>Click here to show graph</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="Already_choose" class="nextPageButton" onclick="redirectToOtherPage()">
+            <div class="nextPageDiv">
+                <span class="nextPageButtonText">Selected: </span>
+                <svg class="arrow" viewBox="0 0 448 512" height="2em" xmlns="http://www.w3.org/2000/svg"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg>
+            </div>
+        </button>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
